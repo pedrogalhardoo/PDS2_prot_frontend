@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import api from './api';
+import React, { useState, useEffect } from "react";
+import api from "./api";
 
 const App = () => {
   const [mensagens, setMensagens] = useState([]);
   const [formData, setFormData] = useState({
-    titulo: '',
-    conteudo: '',
-    publicada: true
+    titulo: "",
+    conteudo: "",
+    publicada: true,
   });
 
   const fetchMensagens = async () => {
-    const response = await api.get('/mensagens');
+    const response = await api.get("/mensagens");
     setMensagens(response.data);
   };
 
@@ -20,21 +20,23 @@ const App = () => {
 
   const handleInputChange = (event) => {
     const value =
-      event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+      event.target.type === "checkbox"
+        ? event.target.checked
+        : event.target.value;
     setFormData({
       ...formData,
-      [event.target.name]: value
+      [event.target.name]: value,
     });
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    await api.post('/criar', formData);
+    await api.post("/criar", formData);
     fetchMensagens();
     setFormData({
-      titulo: '',
-      conteudo: '',
-      publicada: true
+      titulo: "",
+      conteudo: "",
+      publicada: true,
     });
   };
 
@@ -42,27 +44,54 @@ const App = () => {
     <div>
       <nav className="navbar navbar-dark bg-primary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Mensagens APP
-          </a>
+          <span className="navbar-brand">Mensagens APP</span>
         </div>
       </nav>
 
       <div className="container mt-4">
         <form onSubmit={handleFormSubmit}>
           <div className="mb-3">
-            <label htmlFor="titulo" className="form-label">Título</label>
-            <input type="text" className="form-control" id="titulo" name="titulo" onChange={handleInputChange} value={formData.titulo} />
+            <label htmlFor="titulo" className="form-label">
+              Título
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="titulo"
+              name="titulo"
+              onChange={handleInputChange}
+              value={formData.titulo}
+            />
           </div>
           <div className="mb-3">
-            <label htmlFor="conteudo" className="form-label">Conteúdo</label>
-            <input type="text" className="form-control" id="conteudo" name="conteudo" onChange={handleInputChange} value={formData.conteudo} />
+            <label htmlFor="conteudo" className="form-label">
+              Conteúdo
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="conteudo"
+              name="conteudo"
+              onChange={handleInputChange}
+              value={formData.conteudo}
+            />
           </div>
           <div className="form-check mb-3">
-            <input className="form-check-input" type="checkbox" id="publicada" name="publicada" checked={formData.publicada} onChange={handleInputChange} />
-            <label className="form-check-label" htmlFor="publicada">Publicada?</label>
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="publicada"
+              name="publicada"
+              checked={formData.publicada}
+              onChange={handleInputChange}
+            />
+            <label className="form-check-label" htmlFor="publicada">
+              Publicada?
+            </label>
           </div>
-          <button type="submit" className="btn btn-primary">Enviar</button>
+          <button type="submit" className="btn btn-primary">
+            Enviar
+          </button>
         </form>
 
         <hr />
@@ -80,7 +109,7 @@ const App = () => {
               <tr key={msg.id}>
                 <td>{msg.titulo}</td>
                 <td>{msg.conteudo}</td>
-                <td>{msg.publicada ? 'Sim' : 'Não'}</td>
+                <td>{msg.publicada ? "Sim" : "Não"}</td>
               </tr>
             ))}
           </tbody>
